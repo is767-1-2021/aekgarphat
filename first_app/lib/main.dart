@@ -1,15 +1,27 @@
+import 'package:first_app/models/first_form_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'pages/fifth_page.dart';
+
 import 'pages/first_page.dart';
 import 'pages/fourth_page.dart';
 import 'pages/second_page.dart';
-import 'pages/sixth_page.dart';
-import 'pages/third_page.dart';
 import 'pages/seventh_page.dart';
+import 'pages/third_page.dart';
+import 'pages/fifth_page.dart';
+import 'pages/sixth_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => FirstFormModel(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +45,6 @@ class MyApp extends StatelessWidget {
         '/5': (context) => FifthPage(),
         '/6': (context) => SixthPage(),
         '/7': (context) => SeventhPage(),
-        
       }
     );
   }
@@ -49,33 +60,35 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  
+
   Image cat = Image.asset(
     'assets/popcat2.png',
     width: 120,
   );
+
   Image cat1 = Image.asset(
     'assets/popcat1.png',
     width: 120,
   );
+
   Image cat2 = Image.asset(
     'assets/popcat2.png',
     width: 120,
   );
 
   void _incrementCounter() {
-    setState(() { 
+    setState(() {
       cat = cat2;
       _counter++;
     });
   }
+
   void _decreaseCounter() {
-    setState(() {  
+    setState(() {
       cat = cat1;
       _counter--;
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -90,20 +103,19 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               height: 200.0,
               margin: EdgeInsets.only(
-                left: 100.0,
-                right: 100.0, 
-                bottom: 20.0
+                  left: 100.0, 
+                  right: 100.0,
+                  bottom: 20.0
                 ),
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: Colors.amber.withOpacity(0.50),
                 borderRadius: BorderRadius.circular(10.0),
-              ), 
+              ),
               child: cat,
             ),
-              
             Text(
-              'You have pushed the button this many times:',
+              'You Íhave pushed the button this many times:',
             ),
             Text(
               '$_counter',
@@ -118,18 +130,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   onPressed: _decreaseCounter, 
                   child: Text('Decrease'),
-                  ),
+                ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red,
                   ),
                   onPressed: _incrementCounter, 
                   child: Text('Increase'),
-                  ),
+                ),
               ],
-            )
-            
-
+            ),
           ],
         ),
       ),
@@ -141,16 +151,17 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
 class SubmitButton extends StatelessWidget {
   final String buttonText;
   SubmitButton(this.buttonText);
-  
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       child: Text(this.buttonText),
       onPressed: (){
-        print('pressing');
+        print('Pressing');
       },
     );
   }
