@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
+        ),
       );
 
   Widget buildAppBar() => AppBar(
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             Provider.of<FeedbackPositionProvider>(context, listen: false);
         provider.updatePosition(pointerEvent.localDelta.dx);
       },
-      onPointerCancel: (_) {
+      onPointerCancel: (_) { //cancel
         final provider =
             Provider.of<FeedbackPositionProvider>(context, listen: false);
         provider.resetPosition();
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
             Provider.of<FeedbackPositionProvider>(context, listen: false);
         provider.resetPosition();
       },
-      child: Draggable(
+      child: Draggable( //ทำให้ปัดได้
         child: UserCardWidget(user: user, isUserInFocus: isUserInFocus),
         feedback: Material(
           type: MaterialType.transparency,
@@ -96,13 +96,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onDragEnd(DraggableDetails details, User user) {
-    final minimumDrag = 100;
+    final minimumDrag = 100; //pixel 
     if (details.offset.dx > minimumDrag) {
       user.isSwipedOff = true;
-    } else if (details.offset.dx < -minimumDrag) {
+    } else if (details.offset.dx < -minimumDrag) {//ไปคนละทางจะเป็น isliked = true
       user.isLiked = true;
     }
 
-    setState(() => users.remove(user));
+    setState(() => users.remove(user)); //เอาออก
   }
 }

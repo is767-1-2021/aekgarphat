@@ -10,19 +10,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _formKey2 = GlobalKey<FormState>();
   String _email, _password;
 
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-    }
-    if (_formKey2.currentState.validate()) {
-      _formKey2.currentState.save();
-      Navigator.pop(context, {
+     Navigator.pop(context, {
         "email": _email,
-        "password": _password,
-      });
+        "password": _password,}
+     );
     }
   }
 
@@ -30,7 +26,9 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
 
   Widget _buildEmailTF() {
-    return Column(
+    return Form(
+      key: _formKey,
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
@@ -38,9 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
-        Form(
-          key: _formKey,
-          child: Container(
+          Container(
             alignment: Alignment.centerLeft,
             decoration: kBoxDecorationStyle,
             height: 60.0,
@@ -68,23 +64,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildPasswordTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
         Text(
           'Password',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
-        Form(
-          key: _formKey2,
-          child: Container(
+        Container(
             alignment: Alignment.centerLeft,
             decoration: kBoxDecorationStyle,
             height: 60.0,
@@ -114,8 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
               onSaved: (input) => _password = input,
             ),
           ),
-        )
       ],
+    )
     );
   }
 
@@ -337,7 +322,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 30.0,
                       ),
-                      _buildPasswordTF(),
                       _buildForgotPasswordBtn(),
                       _buildRememberMeCheckbox(),
                       _buildLoginBtn(),

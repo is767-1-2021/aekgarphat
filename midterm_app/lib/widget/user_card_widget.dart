@@ -72,9 +72,9 @@ class UserCardWidget extends StatelessWidget {
     final color = isSwipingRight ? Colors.green : Colors.pink;
     final angle = isSwipingRight ? -0.5 : 0.5;
 
-    if (swipingDirection == SwipingDirection.none) {
+    if (swipingDirection == SwipingDirection.none) { //ถ้าไม่ปัดก็ไม่มีอะไร
       return Container();
-    } else {
+    } else { //ปัดซ้ายขวาได้อะไร
       return Positioned(
         top: 20,
         right: isSwipingRight ? null : 20,

@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:whatHome/page/login_screen.dart';
 
 class BottomButtonsWidget extends StatelessWidget {
+  
   @override
-  Widget build(BuildContext context) => Row(
+
+  Widget build(BuildContext context) => Material(
+    child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+        InkWell(
+        onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      )),
+        child: Container(
             height: 50,
             width: 50,
             child: Image.network('https://c.tenor.com/T0nbuvPYSL0AAAAd/tennis-drake.gif'),
+          )
           ),
-         Container(
+
+        InkWell(
+        onTap: (){
+            print("Container clicked");
+            },
+         child: Container(
             height: 50,
             width: 50,
             child: Image.network('https://www.gifcen.com/wp-content/uploads/2021/03/memes-gif-16.gif'),
-          ),
+          )),
+
           Container(
             height: 50,
             width: 50,
@@ -31,5 +46,8 @@ class BottomButtonsWidget extends StatelessWidget {
             child: Image.network('https://i.gifer.com/36Vc.gif'),
           ),
         ],
-      );
+      )
+    );
 }
+
+
