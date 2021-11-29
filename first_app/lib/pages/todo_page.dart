@@ -2,11 +2,10 @@ import 'package:first_app/controllers/todo.dart';
 import 'package:first_app/models/todo.dart';
 import 'package:flutter/material.dart';
 
-class TodoPage extends StatefulWidget{
+class TodoPage extends StatefulWidget {
   final TodoController controller;
 
   TodoPage({required this.controller});
-
   @override
   _TodoPageState createState() => _TodoPageState();
 }
@@ -18,36 +17,41 @@ class _TodoPageState extends State<TodoPage> {
   @override
   void initState() {
     super.initState();
-  
-    widget.controller.onSync.listen(
-      (bool synState) => setState(() => isLoading = synState)
-    );
+    setState(() {});
+    widget.controller.onSync
+        .listen((bool syncState) => setState(() => isLoading = syncState));
   }
 
   void _getTodos() async {
-    var newTodos = await widget.controller.fectTodos();
-
+    var newTodos = await widget.controller.fecthTodos();
     setState(() {
       todos = newTodos;
     });
   }
 
-  Widget get body => isLoading
-    ? CircularProgressIndicator()
-    : ListView.builder(
-      itemCount: todos.isEmpty ? 1 : todos.length,
-      itemBuilder: (context, index) {
-        if (todos.isEmpty) {
-          return Text("Tap button to fetch Todos");
-        }
+  void _updateTodos(int _id, bool _completed) async {
+    await widget.controller.updateTodo(_id, _completed);
+  }
 
-        return CheckboxListTile(
-          onChanged: null,
-          value: todos[index].completed,
-          title: Text(todos[index].title),
-        );
-      },
-    );
+  Widget get body => isLoading
+      ? CircularProgressIndicator()
+      : ListView.builder(
+          itemCount: todos.isEmpty ? 1 : todos.length,
+          itemBuilder: (context, index) {
+            if (todos.isEmpty) {
+              return Text('Tap button to fetch Todos');
+            }
+            return CheckboxListTile(
+              onChanged: (bool? value) {
+                setState(() {
+                  todos[index].completed = value!;
+                  _updateTodos(todos[index].id, value);
+                });
+              },
+              value: todos[index].completed,
+              title: Text(todos[index].title),
+            );
+          });
 
   @override
   Widget build(BuildContext context) {
